@@ -4,7 +4,8 @@ import { LabelText, ButtonForm, Label, FormComponent } from './ContactForm.style
 import { toast } from 'react-toastify';
 import { getContact } from 'redux/selectors';
 import { useSelector, useDispatch } from 'react-redux';
-import { addContact } from 'redux/contactsSlice';
+import { addContact } from 'redux/operations';
+
 
 export function ContactForm() {
    
@@ -13,12 +14,12 @@ export function ContactForm() {
 
     const initialValues = {
         name: '',
-        number: '',
+        phone: '',
     }
 
     const schema = yup.object().shape({
         name: yup.string().required(),
-        number: yup.string().required()
+        phone: yup.string().required()
     })
 
     function handleSubmit(values, {resetForm}) {
@@ -27,11 +28,12 @@ export function ContactForm() {
 
         if (isDuplicate) {
             toast.error(`${values.name} is already in contacts`);
+            resetForm();
             return
             
         } else {
-            
-           dispatch(addContact(values.name.trim(), values.number.trim()));
+
+           dispatch(addContact({ name: values.name.trim(), phone: values.phone.trim() }));
             resetForm();
         }
     }
@@ -54,11 +56,11 @@ export function ContactForm() {
                           />
                 </Label>
                 
-                <Label htmlFor="number">
-                   <LabelText>Number</LabelText> 
+                <Label htmlFor="phone">
+                   <LabelText>Phone number</LabelText> 
                     <Field
                             type="tel"
-                            name="number"
+                            name="phone"
                             pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
                             title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
                             required
