@@ -32,7 +32,11 @@ export default function App() {
       
         <h1>PhoneBook</h1>
         <ContactForm/>
-        {isLoading &&     <ThreeDots 
+        
+      <h2>Contacts</h2>
+      <Filter />
+      
+      {isLoading &&     <ThreeDots 
 height="80" 
 width="80" 
 radius="9"
@@ -42,10 +46,8 @@ wrapperStyle={{}}
 wrapperClassName=""
 visible={true}
       />}
-      
       {!isLoading && <>
-        <h2>Contacts</h2>
-        <Filter />
+        
       
       <ContactList /></>}
       
