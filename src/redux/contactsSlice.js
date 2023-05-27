@@ -20,7 +20,7 @@ const contactsSlice = createSlice({
       // state.items = action.payload
       return {
         ...state,
-        items: [...state.items, ...action.payload],
+        items: [...action.payload],
         isLoading: false,
         error: null
       }
